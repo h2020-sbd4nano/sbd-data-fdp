@@ -2,8 +2,8 @@
 //
 // GPL v3
 
-@Grab(group='io.github.egonw.bacting', module='managers-rdf', version='0.3.2')
-@Grab(group='io.github.egonw.bacting', module='managers-ui', version='0.3.2')
+@Grab(group='io.github.egonw.bacting', module='managers-rdf', version='0.3.3')
+@Grab(group='io.github.egonw.bacting', module='managers-ui', version='0.3.3')
 
 import groovy.json.JsonSlurper
 
@@ -72,10 +72,49 @@ for (rowCounter=1;rowCounter<=results.getRowCount();rowCounter++) {
 query = """
 SELECT DISTINCT ?catalog WHERE {
   ?fdp <http://www.w3.org/ns/ldp#contains> ?catalog .
+  ?catalog a <http://www.w3.org/ns/dcat#Catalog> .
 }
 """
 results = rdf.sparql(kg, query)
 for (cat in results.getColumn("catalog")) {
+  // println "Catalog: $cat"
   ttlContent = bioclipse.download("${cat}?format=ttl")
+  // println ttlContent
   rdf.importFromString(kg, ttlContent, "Turtle")
+}
+
+query = """
+SELECT * WHERE {
+  ?cat a <http://www.w3.org/ns/dcat#Catalog> ;
+    <http://www.w3.org/ns/dcat#dataset> ?dataset .
+}
+"""
+results = rdf.sparql(kg, query)
+for (dataset in results.getColumn("dataset")) {
+  // println "Dataset: $dataset"
+  ttlContent = bioclipse.download("${dataset}?format=ttl")
+  // println ttlContent
+  rdf.importFromString(kg, ttlContent, "Turtle")
+}
+
+
+query = """
+SELECT DISTINCT ?cat ?dataset ?title ?license WHERE {
+  ?cat a <http://www.w3.org/ns/dcat#Catalog> ;
+    <http://www.w3.org/ns/dcat#dataset> ?dataset .
+  ?dataset a <http://www.w3.org/ns/dcat#Dataset> ;
+    <http://purl.org/dc/terms/license> ?license ;
+    <http://purl.org/dc/terms/title> ?title .
+}
+"""
+results = rdf.sparql(kg, query)
+for (rowCounter=1;rowCounter<=results.getRowCount();rowCounter++) {
+  println ""
+  println "<${results.get(rowCounter,"dataset")}>"
+  println " a                    void:Dataset ;"
+  println " dc:source            <${results.get(rowCounter,"dataset")}> ;"
+  println " dct:title            \"${results.get(rowCounter,"title")}\"@en ;"
+  //println " foaf:img             <https://images.nieuwsbrieven.rivm.nl/101500/0/5763/fe1e7915ce28f7a96ca25ed234631504.png> ;"
+  println " dct:license          <${results.get(rowCounter,"license")}> . # license of this dataset"
+  println ""
 }
