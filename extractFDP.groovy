@@ -118,3 +118,22 @@ for (rowCounter=1;rowCounter<=results.getRowCount();rowCounter++) {
   println " dct:license          <${results.get(rowCounter,"license")}> . # license of this dataset"
   println ""
 }
+
+// annotate with nanomaterial types
+query = """
+SELECT DISTINCT ?dataset ?theme WHERE {
+  ?cat a <http://www.w3.org/ns/dcat#Catalog> ;
+    <http://www.w3.org/ns/dcat#dataset> ?dataset .
+  ?dataset a <http://www.w3.org/ns/dcat#Dataset> ;
+    <http://www.w3.org/ns/dcat#theme> ?theme .
+}
+"""
+results = rdf.sparql(kg, query)
+for (rowCounter=1;rowCounter<=results.getRowCount();rowCounter++) {
+  theme = results.get(rowCounter,"theme")
+  if (theme == "https://www.wikidata.org/wiki/Q967847") {
+    println "<${results.get(rowCounter,"dataset")}>"
+    println " <https://www.sbd4nano.eu/bel/#NP> <http://purl.bioontology.org/ontology/npo#NPO_707> ."
+    println ""
+  }
+}
