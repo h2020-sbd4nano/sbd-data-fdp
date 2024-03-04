@@ -47,7 +47,7 @@ for (cat in results.getColumn("catalog")) {
     ttlContent = bioclipse.download("${cat}?format=ttl")
     rdf.importFromString(kg, ttlContent, "Turtle")
   } catch (Exception exception) {
-    println "# error while downloading a catalog: " + exception.message
+    println "# error while downloading a catalog ${cat}: " + exception.message
   }
 }
 
