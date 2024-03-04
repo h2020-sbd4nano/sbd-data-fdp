@@ -9,10 +9,10 @@ on:
       - '*.groovy'
 
 jobs:
-  bioschemas:
+  fdp:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: true
           fetch-depth: 0
@@ -20,7 +20,7 @@ jobs:
       - name: Install groovy
         run: sudo apt install groovy
 
-      - name: Extract Bioschemas
+      - name: Extract from FDP
         run: |
           groovy extractFDP.groovy | tee datasets.ttl
 
