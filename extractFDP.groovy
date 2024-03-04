@@ -43,8 +43,12 @@ SELECT DISTINCT ?catalog WHERE {
 """
 results = rdf.sparql(kg, query)
 for (cat in results.getColumn("catalog")) {
-  ttlContent = bioclipse.download("${cat}?format=ttl")
-  rdf.importFromString(kg, ttlContent, "Turtle")
+  try {
+    ttlContent = bioclipse.download("${cat}?format=ttl")
+    rdf.importFromString(kg, ttlContent, "Turtle")
+  } catch (Exception exception) {
+    println "# error while downloading a catalog: " + exception.message
+  }
 }
 
 query = """
