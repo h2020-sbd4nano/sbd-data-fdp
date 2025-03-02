@@ -28,6 +28,13 @@
  dct:license          <http://rdflicense.appspot.com/rdflicense/cc-by-nc-nd3.0> . # license of this metadata
 
 
+<https://diamonds.tno.nl/fairdatapoint/catalog/4e81163b-22af-4757-91c5-3b4593100504>
+ a                    void:DatasetDescription ;
+ dc:source            <https://diamonds.tno.nl/> ;
+ dct:title            "PLANETS Methods and Tools to assess Safe and Sustainable Substitution "@en ;
+ dct:license          <http://purl.org/NET/rdflicense/cc-zero1.0> . # license of this metadata
+
+
 <https://diamonds.tno.nl/fairdatapoint/dataset/8ad1b946-6181-49de-9424-1b9a71462037>
  a                    void:Dataset ;
  dc:source            <https://diamonds.tno.nl/fairdatapoint/dataset/8ad1b946-6181-49de-9424-1b9a71462037> ;
@@ -47,6 +54,13 @@
  dc:source            <https://diamonds.tno.nl/fairdatapoint/dataset/2905d7d8-1b37-426b-9fd1-0595f299c608> ;
  dct:title            "Scientific models for Safe and Sustainable by Design decision making for advanced nanomaterials"@en ;
  dct:license          <http://rdflicense.appspot.com/rdflicense/cc-by-nc-nd3.0> . # license of this dataset
+
+
+<https://diamonds.tno.nl/fairdatapoint/dataset/2cc7f7cd-7e8e-482e-97b7-f4fcf2ee510e>
+ a                    void:Dataset ;
+ dc:source            <https://diamonds.tno.nl/fairdatapoint/dataset/2cc7f7cd-7e8e-482e-97b7-f4fcf2ee510e> ;
+ dct:title            "Methods and Tools for Safe and Sustainable Substitution"@en ;
+ dct:license          <http://purl.org/NET/rdflicense/cc-zero1.0> . # license of this dataset
 
 <https://diamonds.tno.nl/fairdatapoint/dataset/0d04263f-d706-4344-8c49-f87b27f0d565>
  <https://www.sbd4nano.eu/bel/#NP> <http://purl.bioontology.org/ontology/npo#NPO_707> .
